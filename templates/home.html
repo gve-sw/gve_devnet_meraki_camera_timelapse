@@ -1,0 +1,148 @@
+{% extends "masterPage.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-1">
+
+    </div>
+        <div class="col-6">
+            <div class="section">
+                <div class="panel panel--loose panel--raised base-margin-bottom" style="padding: 50px;">
+                    <h2 class="subtitle">Step 1: Choose Org and Network </h2><hr>
+
+                    <form action="/" method="post" enctype = "multipart/form-data">
+
+                        <div class="row">
+                                <!--Orga fields-->
+                                <div class="form-group base-margin-bottom">
+                                    <div class="form-group__text select" style="width: 500px;">
+                                        <select name="organizations_select" id='organizations_select' required>
+                                            <option disabled selected hidden value="0">Please choose...</option>
+                                            {% for orga in dropdown_content %}<option value="{{orga.orgaid}}" {% if selected_elements.organization == orga.orgaid %} selected {% endif %}>{{orga.organame}} (ID:{{orga.orgaid}})</option>{% endfor %}
+                                        </select>
+                                        <label for="organizations_select">Organization*</label>
+                                    </div>
+                                </div>
+    
+                                <!--Network fields-->
+                                {% for orga in dropdown_content %}
+                                <div id="{{orga.orgaid}}" class="network-select" {% if selected_elements.organization != orga.orgaid %} hidden {% endif %}>
+                                    <div class="form-group base-margin-bottom">
+                                        <div class="form-group__text select" style="width: 500px;">
+                                            <select name="network" class='networks'>
+                                                <option disabled selected hidden value="0">Please choose...</option>
+                                                {% for network in orga['networks'] %}
+                                                    <option value="{{network['networkid']}}" {% if selected_elements.network_id == network['networkid'] %} selected {% endif %}>{{network['networkname']}} (ID:{{network['networkid']}})</option>                                                      
+                                                {% endfor %}
+                                            </select>
+                                            <label for="network">Network*</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+
+                            </div>
+                            
+                        
+                            <button id="submit-file" onclick="this.innerHTML='Loading...'" style="color: white;font-size: large;margin-bottom: 40px;" class="btn btn--primary" type="submit">Next</button>
+
+                </div>
+
+
+
+                <div class="panel panel--loose panel--raised base-margin-bottom" style="padding: 50px;">
+                    <h2 class="subtitle">Step 2: Choose Camera</h2><hr>
+
+                    <form action="/" method="post" enctype = "multipart/form-data">
+
+                        <div class="row">
+                                <!--Cam fields-->
+                                <div class="form-group base-margin-bottom">
+                                    <div class="form-group__text select" style="width: 500px;">
+                                        <select name="cam_select" id='cam_select' required>
+                                            <option disabled selected hidden value="0">Please choose...</option>
+                                            {% for cam in dropdown_content1 %}
+                                            <option value="{{cam.camid}}" >{{cam.camname}} (ID:{{cam.camid}})</option>
+                                            {% endfor %}
+                                        </select>
+                                        <label for="cam_select">Camera*</label>
+                                    </div>
+
+                                <br>
+                                    <label>Timestamp:</label>
+                                    <br> 
+                                    <label>FROM:</label>
+                                    <input id="start_date" name="start_date" type="date" style="width: 70px;" >
+                                    <input type="time" id="start_time" name="start_time" >    
+
+
+                                    <label>Take Snapshot Every (minutes):</label>
+                                    <input  id="s" name="s" type="number" min="1" style="width: 70px;" >
+                                    <br>
+                                    <label>TO:</label> 
+                                    <input id="end_date" name="end_date" type="date" style="width: 70px; position:relative; left: 20px;">
+                                    <input type="time" id="end_time" name="end_time" style="position:relative; left: 20px;" > 
+                                                                   
+                                </div>
+    
+                            
+
+                            </div>
+
+
+
+
+
+
+                        
+                        
+                            <button id="submit-file" onclick="this.innerHTML='Loading...'" style="color: white;font-size: large;margin-bottom: 40px;" class="btn btn--primary" type="submit">Submit</button>
+
+                </div>
+
+
+            </div>
+        </div>
+        
+        <div class="col-4">
+            <div class="section">
+                <div class="panel panel--loose panel--raised base-margin-bottom" style="padding: 50px;">
+                    <h2 class="subtitle">Step 3: Download GIF </h2><hr>
+
+                    <div class="section">
+                        <div class="row">
+                        </div>
+                        </form>
+                        {% if success %}
+                        <div class="toast base-margin-bottom">
+                            <div class="toast__icon text-success icon-check-outline"></div>
+                            <div class="toast__body">
+                                <div class="toast__title">Snapshot Complete</div>
+                                
+                                
+                                <div class="toast__message">Click  <a href={{snapshot}}>HERE</a>
+                                     to Download </div>
+                                   
+                            </div>
+                    
+                        </div>
+                        {% endif %}
+
+                        {% if error %}
+                        <div class="toast base-margin-bottom">
+                            <div class="toast__icon text-danger icon-error-outline"></div>
+                            <div class="toast__body">
+                                <div class="toast__title">Snapshot Failed</div>
+                                <div class="toast__message">Something Went Wrong </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    
+                    
+                    
+                </div>
+            </div>
+            </div>
+        </div>
+</div>
+{%  endblock %}
