@@ -1,6 +1,5 @@
-# gve_devnet_meraki_camera_timelapse
-This prototype allows to generate a timelapse of Meraki camera snapshots.Given a user's input of (1) a Meraki network, (2) a Meraki Camera (3) the timestamp to create the timelapse, the tool generates the timelapse and provides a link to download it.
-
+# GVE DevNet Meraki Camera Timelapse Tool
+This prototype allows to generate a timelapse of Meraki camera snapshots. Given a user's input of (1) a Meraki network, (2) a Meraki Camera (3) the timestamp to create the timelapse, the tool generates the timelapse and provides a link to download it.
 
 ## Contacts
 * Stien Vanderhallen
